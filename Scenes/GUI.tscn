@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuah5iw4xi663"]
+
+[ext_resource type="Script" path="res://Scenes/GUI.gd" id="1_3uq3j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipibp"]
+bg_color = Color(0.172549, 0.117647, 0.192157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2tml"]
+bg_color = Color(0.92549, 0.152941, 0.247059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqpsy"]
+bg_color = Color(0.172549, 0.117647, 0.192157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqduo"]
+bg_color = Color(0.14902, 0.521569, 0.298039, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fogqk"]
+bg_color = Color(0.2, 0.533333, 0.870588, 1)
+
+[node name="GUI" type="Control" node_paths=PackedStringArray("HealthBar", "HungerBar", "EnergyBar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -5.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3uq3j")
+HealthBar = NodePath("Status Bars/HealthBar")
+HungerBar = NodePath("Status Bars/HungerBar")
+EnergyBar = NodePath("Status Bars/EnergyBar")
+
+[node name="Status Bars" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -209.0
+offset_top = -244.0
+offset_right = -6.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="HealthBar" type="ProgressBar" parent="Status Bars"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+auto_translate = false
+localize_numeral_system = false
+tooltip_text = "Health"
+theme_override_styles/background = SubResource("StyleBoxFlat_ipibp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d2tml")
+step = 1.0
+value = 80.0
+fill_mode = 3
+show_percentage = false
+
+[node name="HungerBar" type="ProgressBar" parent="Status Bars"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+auto_translate = false
+localize_numeral_system = false
+tooltip_text = "Health"
+theme_override_styles/background = SubResource("StyleBoxFlat_mqpsy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vqduo")
+step = 1.0
+value = 80.0
+fill_mode = 3
+show_percentage = false
+
+[node name="EnergyBar" type="ProgressBar" parent="Status Bars"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+auto_translate = false
+localize_numeral_system = false
+tooltip_text = "Health"
+theme_override_styles/background = SubResource("StyleBoxFlat_ipibp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fogqk")
+step = 1.0
+value = 80.0
+fill_mode = 3
+show_percentage = false
