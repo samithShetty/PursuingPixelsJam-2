@@ -44,7 +44,7 @@ func _process(delta):
 		anim.play("idle")
 	
 func _unhandled_key_input(event):
-	if event.is_action_pressed("jump"):
+	if event.is_action_pressed("jump") and not jumping:
 		anim.play("jump");
 		jumping = true;
 		scale = Vector2(1.5,1.5)

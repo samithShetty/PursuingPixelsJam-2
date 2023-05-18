@@ -5,6 +5,7 @@ extends Control
 @export var HungerBar: ProgressBar;
 @export var EnergyBar: ProgressBar;
 
+var start_position
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	HealthBar.max_value = player.maxHealth
@@ -15,9 +16,12 @@ func _ready():
 
 	EnergyBar.max_value = player.maxEnergy
 	EnergyBar.value = player.energy
+	
+	start_position = player.position;
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
