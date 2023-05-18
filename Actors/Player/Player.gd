@@ -1,4 +1,4 @@
-extends Node2D
+extends RigidBody2D
 
 @export var moveSpeed: float = 5
 @export var maxHealth: float = 5

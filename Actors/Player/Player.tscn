@@ -1,10 +1,93 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceo21pmc15fcn"]
+[gd_scene load_steps=9 format=3 uid="uid://b26cmo2d6khhg"]
 
-[ext_resource type="Script" path="res://Actors/Player/Player.gd" id="1_v6821"]
 [ext_resource type="Texture2D" uid="uid://dmkpb78jxtyed" path="res://Assets/DungeonTileset/knight_spritesheet.png" id="2_asjv8"]
+[ext_resource type="PackedScene" uid="uid://ces57uh83qipi" path="res://Actors/Weapons/Sword.tscn" id="2_br2v1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahho2"]
-size = Vector2(58, 78)
+[sub_resource type="GDScript" id="GDScript_hgect"]
+script/source = "extends RigidBody2D
+
+@export var moveSpeed: float = 5
+@export var maxHealth: float = 5
+@export var maxHunger: float = 5
+@export var maxEnergy: float = 5
+
+var anim: AnimationPlayer;
+var sprite: Sprite2D;
+var sword: Node2D;
+
+var health = 4;
+var hunger = 5;
+var energy = 5;
+var velocity: Vector2;
+var jumping: bool = false;
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	anim = $AnimationPlayer
+	sprite = $KnightSpritesheet
+	sword = $Sword
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	move_player()
+	animate_player()
+	if not sword.attacking:
+		place_sword()
+
+
+func move_player():
+	velocity = Vector2.ZERO
+	if Input.is_action_pressed(\"move_right\"):
+		velocity.x += 1
+	if Input.is_action_pressed(\"move_left\"):
+		velocity.x -= 1
+	if Input.is_action_pressed(\"move_down\"):
+		velocity.y += 1
+	if Input.is_action_pressed(\"move_up\"):
+		velocity.y -= 1
+	position += velocity.normalized() * moveSpeed;
+
+func animate_player():
+	if jumping:
+		anim.play(\"jump\")
+	elif velocity != Vector2.ZERO:
+		anim.play(\"run\")
+	else:
+		anim.play(\"idle\")
+		
+	# Make player face mouse position
+	sprite.flip_h = get_local_mouse_position().x < 0
+
+func place_sword():
+	var angle = get_angle_to(get_local_mouse_position() + position)
+	sword.rotation = angle
+	
+func _unhandled_input(event):
+	if event.is_action_pressed(\"jump\") and not jumping: ## Jump
+		anim.play(\"jump\");
+		jumping = true;
+	
+	if event.is_action_pressed(\"attack\"):
+		sword.start_attack()
+
+func end_jump():
+	jumping = false;
+	scale = Vector2(1,1)
+
+func update_health(delta_health): # Negative to damage player
+	health += delta_health
+func update_hunger(delta_hunger): # Negative to reduce hunger
+	hunger += delta_hunger
+func update_energy(delta_energy): # Negative to reduce energy
+	energy += delta_energy
+
+
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7pu6j"]
+radius = 26.0
+height = 84.0
 
 [sub_resource type="Animation" id="Animation_o353h"]
 resource_name = "idle"
@@ -92,25 +175,26 @@ _data = {
 }
 
 [node name="Player" type="RigidBody2D"]
-scale = Vector2(1.3, 1.3)
 gravity_scale = 0.0
-script = ExtResource("1_v6821")
+script = SubResource("GDScript_hgect")
 moveSpeed = 4.0
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 15)
-shape = SubResource("RectangleShape2D_ahho2")
+position = Vector2(0, -16)
+shape = SubResource("CapsuleShape2D_7pu6j")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_u0utr")
 }
 
+[node name="Sword" parent="." instance=ExtResource("2_br2v1")]
+
 [node name="KnightSpritesheet" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(4, 4)
 texture = ExtResource("2_asjv8")
+offset = Vector2(0, -8)
 hframes = 9
-frame = 8
-
-[node name="Camera2D" type="Camera2D" parent="."]
