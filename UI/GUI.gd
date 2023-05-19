@@ -30,9 +30,7 @@ func set_stats():
 	EnergyBar.value = player.energy
 
 func update_penalty_icon(icon_path):
-	print(icon_path)
 	var icon = load(icon_path)
-	print(icon)
 	PenaltyTimer.texture_under = icon 
 	PenaltyTimer.texture_progress = icon 
 

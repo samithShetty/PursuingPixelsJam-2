@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 signal player_status_update
 
@@ -16,7 +16,7 @@ signal player_status_update
 var health;
 var hunger;
 var energy;
-var velocity: Vector2;
+var move_input: Vector2;
 var jumping: bool = false;
 
 func _ready():
@@ -26,31 +26,32 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	move_player()
+	move_player(delta)
 	animate_player()
 	if not sword.attacking:
 		place_sword()
 	
-	update_energy(delta * (3 if velocity == Vector2.ZERO else 1))
+	update_energy(delta * (3 if move_input == Vector2.ZERO else 1))
 	update_hunger(-delta)
 
-func move_player():
-	velocity = Vector2.ZERO
+func move_player(delta):
+	move_input = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
+		move_input.x += 1
 	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
+		move_input.x -= 1
 	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
+		move_input.y += 1
 	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
-	position += velocity.normalized() * moveSpeed * ((energy/3 + maxEnergy/3)/maxEnergy) * (2 if jumping else 1);
+		move_input.y -= 1
+	velocity = move_input.normalized() * moveSpeed * ((energy/3 + maxEnergy/3)/maxEnergy) * (2 if jumping else 1)*60;
+	move_and_slide()#position += velocity
 
 
 func animate_player():
 	if jumping:
 		anim.play("jump")
-	elif velocity != Vector2.ZERO:
+	elif move_input != Vector2.ZERO:
 		anim.play("run")
 	else:
 		anim.play("idle")

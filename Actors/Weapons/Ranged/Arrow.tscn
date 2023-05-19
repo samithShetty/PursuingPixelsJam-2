@@ -1,20 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://vlxept2671br"]
+[gd_scene load_steps=4 format=3 uid="uid://bre6yxx31ij4d"]
 
-[ext_resource type="Script" path="res://Actors/Weapons/Weapon.gd" id="1_qxbui"]
-[ext_resource type="Texture2D" uid="uid://c3mb58o3bi1w" path="res://Assets/DungeonTileset/frames/weapon_regular_sword.png" id="3_ncrsh"]
+[ext_resource type="Script" path="res://Actors/Weapons/Weapon.gd" id="1_s6oof"]
+[ext_resource type="Texture2D" uid="uid://c3mb58o3bi1w" path="res://Assets/DungeonTileset/frames/weapon_regular_sword.png" id="2_capoo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0nh0"]
 size = Vector2(84.5, 40)
 
 [node name="Sword" type="Node2D"]
+z_index = 9
 texture_filter = 1
-script = ExtResource("1_qxbui")
+script = ExtResource("1_s6oof")
 
 [node name="WeaponRegularSword" type="Sprite2D" parent="."]
 position = Vector2(60, 0)
 rotation = 1.5708
 scale = Vector2(4, 4)
-texture = ExtResource("3_ncrsh")
+texture = ExtResource("2_capoo")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

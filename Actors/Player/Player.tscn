@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b26cmo2d6khhg"]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://Actors/Player/Player.gd" id="1_0oucl"]
 [ext_resource type="Texture2D" uid="uid://dmkpb78jxtyed" path="res://Assets/DungeonTileset/knight_spritesheet.png" id="2_asjv8"]
-[ext_resource type="PackedScene" uid="uid://vlxept2671br" path="res://Actors/Weapons/Sword.tscn" id="2_br2v1"]
+[ext_resource type="PackedScene" uid="uid://vlxept2671br" path="res://Actors/Weapons/Melee/Sword.tscn" id="2_br2v1"]
 
 [sub_resource type="Animation" id="Animation_o353h"]
 resource_name = "idle"
@@ -89,19 +89,25 @@ _data = {
 "run": SubResource("Animation_tx5sc")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7pu6j"]
-radius = 26.0
-height = 84.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nthhv"]
+size = Vector2(41, 56)
 
-[node name="Player" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qfrsm"]
+radius = 20.25
+height = 59.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 2
 script = ExtResource("1_0oucl")
-moveSpeed = 4.0
+moveSpeed = 15.0
 maxHealth = 50.0
 maxHunger = 50.0
 maxEnergy = 50.0
 jumpCost = 15.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -118,9 +124,14 @@ offset = Vector2(0, -8)
 hframes = 9
 
 [node name="Area2D" type="Area2D" parent="."]
+disable_mode = 2
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -16)
-shape = SubResource("CapsuleShape2D_7pu6j")
+[node name="hitbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(3.5, -11)
+shape = SubResource("RectangleShape2D_nthhv")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(1.75, -10.5)
+shape = SubResource("CapsuleShape2D_qfrsm")

@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://crncpby8dk4h5"]
+[gd_scene load_steps=13 format=3]
 
-[ext_resource type="PackedScene" uid="uid://wv2efsb6c1pf" path="res://Actors/Weapons/BattleAxe.tscn" id="1_6wjum"]
+[ext_resource type="PackedScene" uid="uid://wv2efsb6c1pf" path="res://Actors/Weapons/Melee/BattleAxe.tscn" id="1_6wjum"]
 [ext_resource type="Texture2D" uid="uid://bjl4crawplg30" path="res://Assets/DungeonTileset/frames/orc_warrior_idle_anim_f0.png" id="1_hmx18"]
-[ext_resource type="Script" path="res://Actors/Enemies/Orc.gd" id="1_rq0sc"]
+[ext_resource type="Script" path="res://Actors/Enemies/Orc/Orc.gd" id="1_rq0sc"]
 [ext_resource type="Texture2D" uid="uid://d28xelesu4y48" path="res://Assets/DungeonTileset/frames/orc_warrior_idle_anim_f1.png" id="2_rwtca"]
 [ext_resource type="Texture2D" uid="uid://dhxt5qr51r0en" path="res://Assets/DungeonTileset/frames/orc_warrior_idle_anim_f2.png" id="3_t7j63"]
 [ext_resource type="Texture2D" uid="uid://b48jthf7ixq6w" path="res://Assets/DungeonTileset/frames/orc_warrior_idle_anim_f3.png" id="4_7hugm"]
