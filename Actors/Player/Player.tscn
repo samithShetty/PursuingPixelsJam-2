@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://c6lvlowh4f30a"]
 
 [ext_resource type="Script" path="res://Actors/Player/Player.gd" id="1_0oucl"]
 [ext_resource type="Texture2D" uid="uid://dmkpb78jxtyed" path="res://Assets/DungeonTileset/knight_spritesheet.png" id="2_asjv8"]

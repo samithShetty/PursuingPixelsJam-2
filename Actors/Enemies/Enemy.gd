@@ -21,6 +21,8 @@ var timer: float
 func _ready():
 	enemyState = EnemyState.IDLE
 	health = max_health
+	player = get_node("/root/Main/Player")
+	z_index = 3
 
 func _process(delta):
 	if player.position.distance_to(self.position) < attack_radius:
@@ -56,7 +58,7 @@ func roam(delta_time):
 			roam_point = self.position + Vector2(randf_range(-500, 500), randf_range(-500, 500)) #TODO: Verify Point
 		timer -= delta_time
 
-func chase():
+func chase(): # Overridden by Ranged Enemies
 	roam_point = Vector2.ZERO
 	move(player.position, move_speed)
 	anim.play("run")

@@ -1,6 +1,5 @@
 [gd_scene load_steps=13 format=3 uid="uid://fwlpm2j7ntwe"]
 
-[ext_resource type="PackedScene" uid="uid://wv2efsb6c1pf" path="res://Actors/Weapons/Melee/BattleAxe.tscn" id="1_6wjum"]
 [ext_resource type="Script" path="res://Actors/Enemies/Orc/Orc.gd" id="1_rq0sc"]
 [ext_resource type="Texture2D" uid="uid://c5itwkh81w512" path="res://Assets/DungeonTileset/frames/skelet_idle_anim_f0.png" id="3_swm6b"]
 [ext_resource type="Texture2D" uid="uid://dcphui41dmaif" path="res://Assets/DungeonTileset/frames/skelet_idle_anim_f1.png" id="4_anfn4"]
@@ -9,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bbtsrg3f81l6q" path="res://Assets/DungeonTileset/frames/skelet_run_anim_f0.png" id="7_7xkkb"]
 [ext_resource type="Texture2D" uid="uid://cl266t6nas8k0" path="res://Assets/DungeonTileset/frames/skelet_run_anim_f1.png" id="8_nnmtx"]
 [ext_resource type="Texture2D" uid="uid://gnrp0xfbd6ih" path="res://Assets/DungeonTileset/frames/skelet_run_anim_f2.png" id="9_l3qe6"]
+[ext_resource type="PackedScene" uid="uid://cl5k8cnpo6jar" path="res://Actors/Weapons/Ranged/Bow.tscn" id="10_5hhmx"]
 [ext_resource type="Texture2D" uid="uid://dv4hdot72bon3" path="res://Assets/DungeonTileset/frames/skelet_run_anim_f3.png" id="10_lk3be"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rt2lc"]
@@ -51,15 +51,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iocp1"]
 size = Vector2(11.5, 16.5)
 
-[node name="Orc" type="Node2D"]
+[node name="Skeleton" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_rq0sc")
 detection_radius = 1000.0
-attack_radius = 100.0
+attack_radius = 500.0
 move_speed = 3.0
 max_health = 10.0
-
-[node name="Weapon" parent="." instance=ExtResource("1_6wjum")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -78,3 +76,5 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.25, -2.25)
 shape = SubResource("RectangleShape2D_iocp1")
+
+[node name="Weapon" parent="." instance=ExtResource("10_5hhmx")]

@@ -1,3 +1,4 @@
+class_name Weapon
 extends Node2D
 
 @export var damage: float = 5;
@@ -15,7 +16,7 @@ var collisions: Dictionary # Effective HashSet for holding onto enemy collisions
 func _process(delta):
 	if elapsed_time > attackSpeed:
 		attacking = false;
-	if attacking:
+	if attacking and tween:
 		rotation_degrees = tween.interpolate_value(start_rotation+swingArc, swingArc*-2, elapsed_time, attackSpeed,Tween.TRANS_BACK,Tween.EASE_OUT)
 	elapsed_time += delta
 
@@ -40,5 +41,4 @@ func _area_exited(area):
 	collisions.erase(area.get_parent())
 	
 func damage_entity(entity):
-	print(entity.health)
 	entity.update_health(-damage)

@@ -1,29 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl5k8cnpo6jar"]
+[gd_scene load_steps=5 format=3 uid="uid://cl5k8cnpo6jar"]
 
-[ext_resource type="Script" path="res://Actors/Weapons/Weapon.gd" id="1_hgnpk"]
-[ext_resource type="Texture2D" uid="uid://c3mb58o3bi1w" path="res://Assets/DungeonTileset/frames/weapon_regular_sword.png" id="2_fkci8"]
+[ext_resource type="Script" path="res://Actors/Weapons/RangedWeapon.gd" id="1_a0eyi"]
+[ext_resource type="Texture2D" uid="uid://bonqlkc15aacq" path="res://Assets/DungeonTileset/frames/weapon_bow_2.png" id="2_7785r"]
+[ext_resource type="Texture2D" uid="uid://xgbmxf20obom" path="res://Assets/DungeonTileset/frames/weapon_bow.png" id="3_7yj7q"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g0nh0"]
-size = Vector2(84.5, 40)
+[sub_resource type="SpriteFrames" id="SpriteFrames_m38pp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7785r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7yj7q")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7yj7q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
-[node name="Sword" type="Node2D"]
+[node name="Weapon" type="Node2D"]
 z_index = 9
 texture_filter = 1
-script = ExtResource("1_hgnpk")
+script = ExtResource("1_a0eyi")
+projectile_path = "res://Actors/Weapons/Ranged/Projectiles/Arrow.tscn"
+damage = 0.0
+attackSpeed = 1.0
+swingArc = 0.0
 
-[node name="WeaponRegularSword" type="Sprite2D" parent="."]
-position = Vector2(60, 0)
-rotation = 1.5708
-scale = Vector2(4, 4)
-texture = ExtResource("2_fkci8")
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(20, 0)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_m38pp")
+animation = &"attack"
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(59.75, 0)
-shape = SubResource("RectangleShape2D_g0nh0")
-
-[connection signal="area_entered" from="Area2D" to="." method="_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_area_exited"]
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_animated_sprite_animation_finished"]
