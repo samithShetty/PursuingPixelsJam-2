@@ -99,6 +99,7 @@ moveSpeed = 4.0
 maxHealth = 50.0
 maxHunger = 50.0
 maxEnergy = 50.0
+jumpCost = 15.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

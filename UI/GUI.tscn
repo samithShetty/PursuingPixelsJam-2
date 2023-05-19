@@ -17,7 +17,8 @@ bg_color = Color(0.14902, 0.521569, 0.298039, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fogqk"]
 bg_color = Color(0.2, 0.533333, 0.870588, 1)
 
-[node name="GUI" type="Control" node_paths=PackedStringArray("HealthBar", "HungerBar", "EnergyBar")]
+[node name="GUI" type="Control" node_paths=PackedStringArray("HealthBar", "HungerBar", "EnergyBar", "PenaltyTimer")]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,6 +32,7 @@ script = ExtResource("1_3uq3j")
 HealthBar = NodePath("Status Bars/HealthBar")
 HungerBar = NodePath("Status Bars/HungerBar")
 EnergyBar = NodePath("Status Bars/EnergyBar")
+PenaltyTimer = NodePath("PenaltyTimer")
 
 [node name="Status Bars" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -67,11 +69,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 auto_translate = false
 localize_numeral_system = false
-tooltip_text = "Health"
+tooltip_text = "Hunger"
 theme_override_styles/background = SubResource("StyleBoxFlat_mqpsy")
 theme_override_styles/fill = SubResource("StyleBoxFlat_vqduo")
 step = 1.0
-value = 80.0
+value = 40.0
 fill_mode = 3
 show_percentage = false
 
@@ -81,10 +83,25 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 auto_translate = false
 localize_numeral_system = false
-tooltip_text = "Health"
+tooltip_text = "Energy"
 theme_override_styles/background = SubResource("StyleBoxFlat_ipibp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fogqk")
 step = 1.0
-value = 80.0
+value = 60.0
 fill_mode = 3
 show_percentage = false
+
+[node name="PenaltyTimer" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -129.0
+offset_top = 8.0
+offset_right = -97.0
+offset_bottom = 40.0
+grow_horizontal = 0
+scale = Vector2(4, 4)
+value = 50.0
+fill_mode = 3
+tint_under = Color(1, 1, 1, 0.231373)

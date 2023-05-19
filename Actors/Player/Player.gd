@@ -7,6 +7,8 @@ signal player_status_update
 @export var maxHunger: float
 @export var maxEnergy: float
 
+@export var jumpCost: float
+
 @onready var anim = $AnimationPlayer;
 @onready var sprite = $KnightSpritesheet
 @onready var sword = $Sword
@@ -21,13 +23,16 @@ func _ready():
 	health = maxHealth;
 	hunger = maxHunger;
 	energy = maxEnergy;
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	move_player()
 	animate_player()
 	if not sword.attacking:
 		place_sword()
-
+	
+	update_energy(delta * (3 if velocity == Vector2.ZERO else 1))
+	update_hunger(-delta)
 
 func move_player():
 	velocity = Vector2.ZERO
@@ -39,7 +44,7 @@ func move_player():
 		velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
-	position += velocity.normalized() * moveSpeed;
+	position += velocity.normalized() * moveSpeed * ((energy/3 + maxEnergy/3)/maxEnergy) * (2 if jumping else 1);
 
 
 func animate_player():
@@ -60,9 +65,11 @@ func place_sword():
 
 
 func _unhandled_input(event):
-	if event.is_action_pressed("jump") and not jumping: ## Jump
+	if event.is_action_pressed("jump") and not jumping and energy > jumpCost: ## Jump
 		anim.play("jump");
 		jumping = true;
+		energy -= jumpCost
+		
 
 
 func _input(event):
@@ -82,5 +89,5 @@ func update_hunger(delta_hunger): # Negative to reduce hunger
 
 	
 func update_energy(delta_energy): # Negative to reduce energy
-	energy += delta_energy
+	energy = clampf(energy + delta_energy, 0, maxEnergy)
 	
