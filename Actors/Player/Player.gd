@@ -83,7 +83,8 @@ func end_jump():
 
 func update_health(delta_health): # Negative to damage player
 	health += delta_health
-
+	if health <= 0:
+		get_tree().change_scene_to_file("res://Screens+UI/GameOver.tscn")
 		
 func update_hunger(delta_hunger): # Negative to reduce hunger
 	hunger += delta_hunger
