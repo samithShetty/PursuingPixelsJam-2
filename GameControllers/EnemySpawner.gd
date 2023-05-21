@@ -1,10 +1,11 @@
 extends Node
 
+signal enemy_death(points: int)
+
 @export var factor: float
 @export var map : TileMap
 @onready var timer = $Timer
 var enemy_types: Array[Resource] = []
-var score: int;
 
 func _ready(): 
 	## Load all enemy scenes from the Enemy directory
@@ -23,9 +24,8 @@ func spawn_enemy():
 		add_child(enemy)
 		enemy.enemy_death.connect(_on_enemy_death.bind(enemy.points))
 
-
 func _on_enemy_death(points: int):
-	score += points
+	emit_signal("enemy_death", points)
 
 func _on_timer_timeout():
 	spawn_enemy()

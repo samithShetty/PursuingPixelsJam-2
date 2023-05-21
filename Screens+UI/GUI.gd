@@ -3,10 +3,9 @@ extends Control
 
 @export var player: Node;
 @export var penaltyController: Node
-@export var enemySpawner : Node
 
 @export var HealthBar: ProgressBar;
-@export var HungerBar: ProgressBar;
+@export var SoulBar: ProgressBar;
 @export var EnergyBar: ProgressBar;
 @export var PenaltyTimer: TextureProgressBar;
 @export var ScoreLabel: Label;
@@ -20,14 +19,14 @@ func _ready():
 func _process(delta):
 	set_stats()
 	PenaltyTimer.value = penaltyController.timer.time_left/penaltyController.penalty_duration*100
-	ScoreLabel.text = str(enemySpawner.score)
+	ScoreLabel.text = str(player.score)
 	
 func set_stats():
 	HealthBar.max_value = player.maxHealth
 	HealthBar.value = player.health
 
-	HungerBar.max_value = player.maxHunger
-	HungerBar.value = player.hunger
+	SoulBar.max_value = player.maxSoul
+	SoulBar.value = player.soul
 
 	EnergyBar.max_value = player.maxEnergy
 	EnergyBar.value = player.energy

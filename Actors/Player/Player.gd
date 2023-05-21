@@ -1,39 +1,45 @@
 extends CharacterBody2D
 
-signal player_status_update
-
 @export var moveSpeed: float
 @export var maxHealth: float
-@export var maxHunger: float
+@export var maxSoul: float
 @export var maxEnergy: float
 
 @export var jumpCost: float
 
+@export var enemySpawner:Node
 @onready var anim = $AnimationPlayer;
 @onready var sprite = $KnightSpritesheet
 @onready var sword = $Sword
 @onready var hitbox = $Area2D
 
-var health;
-var hunger;
-var energy;
+var health: float;
+var soul: float;
+var energy: float;
 var move_input: Vector2;
 var jumping: bool = false;
+var score: int
 
 func _ready():
 	health = maxHealth;
-	hunger = maxHunger;
+	soul = maxSoul;
 	energy = maxEnergy;
+	
+	enemySpawner.enemy_death.connect(_on_enemy_killed)
+	
+
+func _physics_process(delta):
+	move_player(delta)	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	move_player(delta)
 	animate_player()
 	if not sword.attacking:
 		place_sword()
 	
 	update_energy(delta * (3 if move_input == Vector2.ZERO else 1))
-	update_hunger(-delta)
+	update_soul(-delta)
+	update_health(delta * (1 if move_input == Vector2.ZERO else 0.5))
 
 func move_player(delta):
 	move_input = Vector2.ZERO
@@ -45,8 +51,8 @@ func move_player(delta):
 		move_input.y += 1
 	if Input.is_action_pressed("move_up"):
 		move_input.y -= 1
-	velocity = move_input.normalized() * moveSpeed * ((energy/3 + maxEnergy/3)/maxEnergy) * (2 if jumping else 1)*60;
-	move_and_slide()#position += velocity
+	velocity = move_input.normalized() * moveSpeed * ((energy/3 + maxEnergy/3)/maxEnergy) * (2 if jumping else 1);
+	move_and_slide()
 
 
 func animate_player():
@@ -84,14 +90,21 @@ func end_jump():
 	hitbox.process_mode = Node.PROCESS_MODE_INHERIT
 
 func update_health(delta_health): # Negative to damage player
-	health += delta_health
+	health = clampf(health+delta_health, 0, maxHealth)
 	if health <= 0:
-		get_tree().change_scene_to_file("res://Screens+UI/GameOver.tscn")
+		game_over()
 		
-func update_hunger(delta_hunger): # Negative to reduce hunger
-	hunger += delta_hunger
+func update_soul(delta_soul): # Negative to reduce soul
+	soul = clampf(soul+delta_soul, 0, maxSoul)
+	if soul <= 0:
+		game_over()
 
-	
 func update_energy(delta_energy): # Negative to reduce energy
 	energy = clampf(energy + delta_energy, 0, maxEnergy)
-	
+
+func game_over():
+	get_tree().change_scene_to_file("res://Screens+UI/GameOver.tscn")
+
+func _on_enemy_killed(points):
+	update_soul(points/2)
+	score += points

@@ -8,16 +8,16 @@
 
 [node name="Main" type="Node"]
 
-[node name="Player" parent="." instance=ExtResource("2_dc4wn")]
+[node name="Player" parent="." node_paths=PackedStringArray("enemySpawner") instance=ExtResource("2_dc4wn")]
 position = Vector2(1146, 73)
+enemySpawner = NodePath("../EnemySpawner")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="GUI" parent="CanvasLayer" node_paths=PackedStringArray("player", "penaltyController", "enemySpawner") instance=ExtResource("4_bb7x0")]
+[node name="GUI" parent="CanvasLayer" node_paths=PackedStringArray("player", "penaltyController") instance=ExtResource("4_bb7x0")]
 player = NodePath("../../Player")
 penaltyController = NodePath("../../PenaltyController")
-enemySpawner = NodePath("../../EnemySpawner")
 
 [node name="PenaltyController" parent="." node_paths=PackedStringArray("player", "gui") instance=ExtResource("5_y03ly")]
 player = NodePath("../Player")
