@@ -12,6 +12,7 @@ signal player_status_update
 @onready var anim = $AnimationPlayer;
 @onready var sprite = $KnightSpritesheet
 @onready var sword = $Sword
+@onready var hitbox = $Area2D
 
 var health;
 var hunger;
@@ -70,7 +71,7 @@ func _unhandled_input(event):
 		anim.play("jump");
 		jumping = true;
 		energy -= jumpCost
-		
+		hitbox.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func _input(event):
@@ -80,6 +81,7 @@ func _input(event):
 func end_jump():
 	jumping = false;
 	scale = Vector2(1,1)
+	hitbox.process_mode = Node.PROCESS_MODE_INHERIT
 
 func update_health(delta_health): # Negative to damage player
 	health += delta_health

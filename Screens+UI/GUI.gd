@@ -3,11 +3,13 @@ extends Control
 
 @export var player: Node;
 @export var penaltyController: Node
+@export var enemySpawner : Node
 
 @export var HealthBar: ProgressBar;
 @export var HungerBar: ProgressBar;
 @export var EnergyBar: ProgressBar;
 @export var PenaltyTimer: TextureProgressBar;
+@export var ScoreLabel: Label;
 
 var start_position
 # Called when the node enters the scene tree for the first time.
@@ -18,7 +20,8 @@ func _ready():
 func _process(delta):
 	set_stats()
 	PenaltyTimer.value = penaltyController.timer.time_left/penaltyController.penalty_duration*100
-
+	ScoreLabel.text = str(enemySpawner.score)
+	
 func set_stats():
 	HealthBar.max_value = player.maxHealth
 	HealthBar.value = player.health

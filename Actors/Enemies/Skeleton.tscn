@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://fwlpm2j7ntwe"]
+
+[ext_resource type="Script" path="res://Actors/Enemies/Enemy.gd" id="1_ds2eq"]
+[ext_resource type="Texture2D" uid="uid://c5itwkh81w512" path="res://Assets/DungeonTileset/frames/skelet_idle_anim_f0.png" id="2_8rctt"]
+[ext_resource type="Texture2D" uid="uid://dcphui41dmaif" path="res://Assets/DungeonTileset/frames/skelet_idle_anim_f1.png" id="3_qaalh"]
+[ext_resource type="Texture2D" uid="uid://be5kk86soxekh" path="res://Assets/DungeonTileset/frames/skelet_idle_anim_f2.png" id="4_h3fj6"]
+[ext_resource type="Texture2D" uid="uid://csaiejhol3yr" path="res://Assets/DungeonTileset/frames/skelet_idle_anim_f3.png" id="5_raa31"]
+[ext_resource type="Texture2D" uid="uid://bbtsrg3f81l6q" path="res://Assets/DungeonTileset/frames/skelet_run_anim_f0.png" id="6_a2h45"]
+[ext_resource type="Texture2D" uid="uid://cl266t6nas8k0" path="res://Assets/DungeonTileset/frames/skelet_run_anim_f1.png" id="7_87q85"]
+[ext_resource type="Texture2D" uid="uid://gnrp0xfbd6ih" path="res://Assets/DungeonTileset/frames/skelet_run_anim_f2.png" id="8_hj8xe"]
+[ext_resource type="Texture2D" uid="uid://dv4hdot72bon3" path="res://Assets/DungeonTileset/frames/skelet_run_anim_f3.png" id="9_4vj0s"]
+[ext_resource type="PackedScene" uid="uid://cl5k8cnpo6jar" path="res://Actors/Weapons/Ranged/Bow.tscn" id="10_38k37"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rt2lc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8rctt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qaalh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h3fj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_raa31")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_a2h45")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_87q85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_hj8xe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4vj0s")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iocp1"]
+size = Vector2(11.5, 16.5)
+
+[node name="Skeleton" type="CharacterBody2D"]
+texture_filter = 1
+collision_layer = 4
+script = ExtResource("1_ds2eq")
+detection_radius = 1000.0
+attack_radius = 500.0
+move_speed = 300.0
+max_health = 10.0
+points = 5.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_rt2lc")
+animation = &"idle"
+frame = 2
+frame_progress = 0.400581
+offset = Vector2(-1, -6)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(4, 4)
+collision_layer = 4
+collision_mask = 0
+
+[node name="hitbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.25, -2.25)
+shape = SubResource("RectangleShape2D_iocp1")
+
+[node name="Weapon" parent="." instance=ExtResource("10_38k37")]
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(1, -9)
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_iocp1")

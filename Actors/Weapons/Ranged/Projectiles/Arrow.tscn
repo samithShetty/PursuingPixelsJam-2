@@ -10,12 +10,12 @@ size = Vector2(59, 17)
 z_index = 9
 texture_filter = 1
 script = ExtResource("1_olpjq")
-flight_speed = 5.0
+flight_speed = 10.0
 duration = 2.0
 attackSpeed = 0.0
 swingArc = 0.0
 
-[node name="WeaponRegularSword" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(40, 0)
 rotation = 1.5708
 scale = Vector2(3, 3)
@@ -25,9 +25,6 @@ texture = ExtResource("2_jasji")
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="hitbox" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(39.5, -0.5)
 shape = SubResource("RectangleShape2D_g0nh0")
-
-[connection signal="area_entered" from="Area2D" to="." method="_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_area_exited"]

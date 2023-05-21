@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://xbr34iba5grb"]
+
+[ext_resource type="Script" path="res://Actors/Enemies/Enemy.gd" id="1_df2fc"]
+[ext_resource type="PackedScene" uid="uid://wv2efsb6c1pf" path="res://Actors/Weapons/Melee/BattleAxe.tscn" id="2_0p727"]
+[ext_resource type="Texture2D" uid="uid://bjl4crawplg30" path="res://Assets/DungeonTileset/frames/orc_warrior_idle_anim_f0.png" id="3_dbtxg"]
+[ext_resource type="Texture2D" uid="uid://d28xelesu4y48" path="res://Assets/DungeonTileset/frames/orc_warrior_idle_anim_f1.png" id="4_2dgg8"]
+[ext_resource type="Texture2D" uid="uid://dhxt5qr51r0en" path="res://Assets/DungeonTileset/frames/orc_warrior_idle_anim_f2.png" id="5_5v6cq"]
+[ext_resource type="Texture2D" uid="uid://b48jthf7ixq6w" path="res://Assets/DungeonTileset/frames/orc_warrior_idle_anim_f3.png" id="6_acorg"]
+[ext_resource type="Texture2D" uid="uid://by5l46n4yr4lj" path="res://Assets/DungeonTileset/frames/orc_warrior_run_anim_f0.png" id="7_6aku3"]
+[ext_resource type="Texture2D" uid="uid://bj8dlu20dwxo2" path="res://Assets/DungeonTileset/frames/orc_warrior_run_anim_f1.png" id="8_62lby"]
+[ext_resource type="Texture2D" uid="uid://cttbgyk41ds2y" path="res://Assets/DungeonTileset/frames/orc_warrior_run_anim_f2.png" id="9_opjf8"]
+[ext_resource type="Texture2D" uid="uid://frgoa4jrbuua" path="res://Assets/DungeonTileset/frames/orc_warrior_run_anim_f3.png" id="10_ytulk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rt2lc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_dbtxg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2dgg8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5v6cq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_acorg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_6aku3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_62lby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_opjf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ytulk")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iocp1"]
+size = Vector2(11.5, 16.5)
+
+[node name="Orc" type="CharacterBody2D"]
+texture_filter = 1
+collision_layer = 4
+script = ExtResource("1_df2fc")
+detection_radius = 1000.0
+attack_radius = 50.0
+move_speed = 500.0
+max_health = 10.0
+points = 10.0
+
+[node name="Weapon" parent="." instance=ExtResource("2_0p727")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_rt2lc")
+animation = &"idle"
+offset = Vector2(-1, -6)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(4, 4)
+collision_layer = 4
+collision_mask = 0
+
+[node name="hitbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.25, -2.25)
+shape = SubResource("RectangleShape2D_iocp1")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(1, -9)
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_iocp1")

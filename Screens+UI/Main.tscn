@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://da47pewd2lr3s"]
 
 [ext_resource type="PackedScene" uid="uid://c6lvlowh4f30a" path="res://Actors/Player/Player.tscn" id="2_dc4wn"]
-[ext_resource type="PackedScene" path="res://Screens+UI/GUI.tscn" id="4_bb7x0"]
+[ext_resource type="PackedScene" uid="uid://cnct8oqrsqmrp" path="res://Screens+UI/GUI.tscn" id="4_bb7x0"]
 [ext_resource type="PackedScene" uid="uid://bojurf3s2ungi" path="res://GameControllers/PenaltyController.tscn" id="5_y03ly"]
 [ext_resource type="PackedScene" uid="uid://8oxpsikwe3a8" path="res://GameControllers/EnemySpawner.tscn" id="7_a7tjs"]
 [ext_resource type="PackedScene" uid="uid://bdevaq7g4nsmw" path="res://Map/DungeonMap.tscn" id="7_cg77p"]
@@ -14,9 +14,10 @@ position = Vector2(1146, 73)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="GUI" parent="CanvasLayer" node_paths=PackedStringArray("player", "penaltyController") instance=ExtResource("4_bb7x0")]
+[node name="GUI" parent="CanvasLayer" node_paths=PackedStringArray("player", "penaltyController", "enemySpawner") instance=ExtResource("4_bb7x0")]
 player = NodePath("../../Player")
 penaltyController = NodePath("../../PenaltyController")
+enemySpawner = NodePath("../../EnemySpawner")
 
 [node name="PenaltyController" parent="." node_paths=PackedStringArray("player", "gui") instance=ExtResource("5_y03ly")]
 player = NodePath("../Player")

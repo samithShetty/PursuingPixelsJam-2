@@ -15,5 +15,6 @@ func start_attack():
 	queue_free()
 	
 	
-func _process(delta):
-	global_position += flight_speed*Vector2.RIGHT.rotated(rotation)
+func _physics_process(delta):
+	global_position = flight_speed*Vector2.RIGHT.rotated(rotation)
+	

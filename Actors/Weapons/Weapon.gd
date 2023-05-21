@@ -17,7 +17,7 @@ func _process(delta):
 	if elapsed_time > attackSpeed:
 		attacking = false;
 	if attacking and tween:
-		rotation_degrees = tween.interpolate_value(start_rotation+swingArc, swingArc*-2, elapsed_time, attackSpeed,Tween.TRANS_BACK,Tween.EASE_OUT)
+		rotation_degrees = Tween.interpolate_value(start_rotation+swingArc, swingArc*-2, elapsed_time, attackSpeed,Tween.TRANS_BACK,Tween.EASE_OUT)
 	elapsed_time += delta
 
 func start_attack():

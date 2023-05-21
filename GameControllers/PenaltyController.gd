@@ -1,7 +1,7 @@
 extends Node
 ## Controls Starting/Ending of Penalty Events and contains all Event definitions
 
-enum Penalty{RANDOM_CONTROLS,NO_JUMP,NO_ATTACK}
+enum Penalty{RANDOM_CONTROLS,NO_JUMP,NO_ATTACK, ONE_HP}
 
 @export var player: Node2D
 @export var gui: Control
@@ -33,6 +33,8 @@ func start_penalty():
 		Penalty.NO_ATTACK:
 			no_attack()
 			penalty_icon_path = "res://Assets/Shikashi's Fantasy Icons Pack v2/heart.png"
+		Penalty.ONE_HP:
+			one_hp()
 
 	gui.update_penalty_icon(penalty_icon_path)
 	timer.start(penalty_duration)
@@ -46,6 +48,8 @@ func end_penalty():
 			end_no_jump()
 		Penalty.NO_ATTACK:
 			end_no_attack()
+		Penalty.ONE_HP:
+			end_one_hp()
 
 func create_input_event(action):
 	var event = InputEventKey.new()
@@ -98,6 +102,14 @@ func end_no_attack():
 	var event = InputEventMouseButton.new()
 	event.button_index = 1
 	InputMap.action_add_event("attack",event)
+
+
+func one_hp():
+	player.health = 1
+	
+func end_one_hp():
+	player.health = player.maxHealth
+
 
 func _on_timer_timeout():
 	end_penalty()

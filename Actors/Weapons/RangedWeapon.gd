@@ -18,7 +18,6 @@ func fire():
 	proj.global_rotation_degrees = self.global_rotation_degrees
 	add_child(proj)
 	proj.start_attack()
-	
 
 
 func _on_animated_sprite_animation_finished():
