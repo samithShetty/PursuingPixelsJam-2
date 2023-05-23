@@ -4,16 +4,19 @@ signal enemy_death(points: int)
 
 @export var factor: float
 @export var map : TileMap
+@export var enemy_types: Array[Resource]
 @onready var timer = $Timer
-var enemy_types: Array[Resource] = []
+
+
+
 
 func _ready(): 
 	## Load all enemy scenes from the Enemy directory
-	var enemy_dir = "res://Actors/Enemies/" 
-	var enemy_paths = DirAccess.get_files_at(enemy_dir)
-	for path in enemy_paths:
-		if path.ends_with(".tscn"):
-			enemy_types.append(load(enemy_dir + path))
+#	var enemy_dir = "res://Actors/Enemies/" 
+#	var enemy_paths = DirAccess.get_files_at(enemy_dir)
+#	for path in enemy_paths:
+#		enemy_types.append(load(enemy_dir + path))
+	pass
 
 
 func spawn_enemy():
